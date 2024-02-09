@@ -24,8 +24,6 @@ void bubble_sort(int *arr, int n)
 }
 
 
-
-
 void insertion_sort(int *arr, int n)
 {
     for(int i=1; i<n; i++)
@@ -187,13 +185,40 @@ void quickSort(int *arr, int s, int e)
 
 int main()
 {
-    int arr[] = {9,9,2,5,1,8,2,9,3};
-    int n = sizeof(arr)/sizeof(int);
-
-    mergeSort(arr, 0, n-1);
-    quickSort(arr, 0, n-1);
-    
+    int arr1[] = {9,9,2,5,1,8,2,9,3};
+    int n = sizeof(arr1)/sizeof(int);
+    cout<<"merge_sort"<<endl;
+    mergeSort(arr1, 0, n-1);
     cout<<"sorted array is : ";
-    for(auto x: arr)cout<<x<<" ";
+    for(auto x: arr1)cout<<x<<" ";
+    cout<<endl;
+
+
+    int arr2[] = {9,9,2,5,1,8,2,9,3};
+    cout<<"quick_sort"<<endl;
+    quickSort(arr2, 0, n-1);
+    cout<<"sorted array is : ";
+    for(auto x: arr2)cout<<x<<" ";
+    cout<<endl;
+
+    int arr3[] = {9,9,2,5,1,8,2,9,3};
+    cout<<"bubble_sort"<<endl;
+    bubble_sort(arr3, n);
+    cout<<"sorted array is : ";
+    for(auto x: arr3)cout<<x<<" ";
+    cout<<endl;
+
+    int arr4[] = {9,9,2,5,1,8,2,9,3};
+    cout<<"selection_sort"<<endl;
+    selection_sort(arr4, n);
+    cout<<"sorted array is : ";
+    for(auto x: arr4)cout<<x<<" ";
+    cout<<endl;
+
+    int arr5[] = {9,9,2,5,1,8,2,9,3};
+    cout<<"insertion_sort"<<endl;
+    insertion_sort(arr5, n);
+    cout<<"sorted array is : ";
+    for(auto x: arr5)cout<<x<<" ";
     cout<<endl;
 }

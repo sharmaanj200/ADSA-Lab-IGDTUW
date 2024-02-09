@@ -6,16 +6,90 @@ Given two linked lists with starting point P1 and P2, create a third linked list
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Node {
-  int data;
-  struct Node *next;
-  
-  Node(int x) {
-    data = x;
-    next = NULL;
-  }
+class Node{
+    public:
+    int data;
+    Node *next;
+
+    Node(int d){
+        this->data = d;
+        this->next = NULL;
+    }
+
+    ~Node(){
+        int value = this->data;
+        if(this->next != NULL){
+            this->next = NULL;
+            delete next;
+        }
+        cout<<"Memory for value "<<value<<" has been deleted"<<endl;
+    }
 };
 
+//insertion at head
+void insertatHead(Node *&head, Node *&tail, int d){
+    
+    Node *temp = new Node(d);
+    if(head == NULL) {
+        head = temp;
+        tail = temp;
+        return;
+    }
+    temp -> next = head;
+    head = temp;   //modifying the head pointer.
+
+}
+
+
+//traversal
+void printList(Node * &head){
+
+    Node *temp = head;
+    while(temp != '\0'){
+
+        cout<<temp -> data<<" ";
+        temp = temp -> next;
+    }
+}
+
+
+Node* insertionSort(Node* head)
+{
+    
+    Node* ans=new Node(head->data);
+    Node* curr=head->next;
+    
+    while(curr!=NULL){
+        Node* next_node=curr->next;
+        
+        Node* temp=ans;
+        Node* prev=NULL;
+        
+        while(temp!=NULL && temp->data < curr->data){
+            prev=temp;
+            temp=temp->next;
+        }
+        
+        if(prev==NULL){
+            curr->next=temp;
+            ans=curr;
+        }
+        
+        else if(temp==NULL){
+            prev->next=curr;
+            curr->next=NULL;
+        }
+        
+        else {
+            prev->next=curr;
+            curr->next=temp;
+        }
+        
+        curr=next_node;
+    }
+    
+    return ans;
+}
 
 //merge two sorted linked lists
 Node* sortedMerge(Node* head1, Node* head2)  
@@ -78,5 +152,40 @@ Node* sortedMerge(Node* head1, Node* head2)
 
 int main()
 {
-    
+    Node* node1 = new Node(1);
+    Node* node2 = new Node(7);
+    Node* tail1 = node1;
+    Node* tail2 = node2;
+
+    insertatHead(node1, tail1, 4);
+    insertatHead(node1, tail1, 2);
+    insertatHead(node1, tail1, 9);
+    insertatHead(node1, tail1, 3);
+
+    insertatHead(node2, tail2, 12);
+    insertatHead(node2, tail2, 7);
+    insertatHead(node2, tail2, 10);
+    insertatHead(node2, tail2, 15);
+
+    //Before sorting 
+    cout<<"Before sorting"<<endl;
+    printList(node1);
+    cout<<endl;
+    printList(node2);
+    cout<<endl;
+
+    Node* ans1 = insertionSort(node1);
+    Node* ans2 = insertionSort(node2);
+
+    //After sorting
+    cout<<"After sorting"<<endl;
+    printList(ans1);
+    cout<<endl;
+    printList(ans2);
+    cout<<endl;
+
+    //After merging
+    cout<<"After merging"<<endl;
+    Node* root = sortedMerge(ans1, ans2);
+    printList(root);
 }
